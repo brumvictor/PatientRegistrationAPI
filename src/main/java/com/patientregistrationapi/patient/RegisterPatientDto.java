@@ -1,6 +1,6 @@
-package com.patientregistrationapi.controllers;
+package com.patientregistrationapi.patient;
 
-public record RegisterPatientData(
+public record RegisterPatientDto(
 		String name, 
 		String birthDate, 
 		BloodGroup bloodGroup, 

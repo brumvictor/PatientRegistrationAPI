@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patientregistrationapi.patient.RegisterPatientDto;
+
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
 	
 	@PostMapping
-	public void register(@RequestBody RegisterPatientData data) {
+	public void register(@RequestBody RegisterPatientDto data) {
 		
 		System.out.println(data);
 	}

@@ -1,4 +1,4 @@
-package com.patientregistrationapi.controllers;
+package com.patientregistrationapi.patient;
 
 public enum BloodGroup {
 	A_POSITIVE("A+"),
