@@ -6,5 +6,5 @@ public record RegisterPatientDto(
 		BloodGroup bloodGroup, 
 		String phoneNumber, 
 		String email, 
-		String adress) {
+		String address) {
 }

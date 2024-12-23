@@ -22,6 +22,15 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 public class Patient {
 	
+	public Patient(RegisterPatientDto dto) {
+		this.name=dto.name();
+		this.birthDate=dto.birthDate();
+		this.bloodGroup=dto.bloodGroup();
+		this.phoneNumber=dto.phoneNumber();
+		this.email=dto.email();
+		this.address=dto.address();
+	}
+	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -33,5 +42,5 @@ public class Patient {
 	
 	private String phoneNumber;
 	private String email;
-	private String adress;
+	private String address;
 }
