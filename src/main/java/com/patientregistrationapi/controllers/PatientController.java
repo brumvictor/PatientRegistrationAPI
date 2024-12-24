@@ -10,6 +10,8 @@ import com.patientregistrationapi.patient.Patient;
 import com.patientregistrationapi.patient.PatientRepository;
 import com.patientregistrationapi.patient.RegisterPatientDto;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
@@ -18,7 +20,7 @@ public class PatientController {
 	private PatientRepository repository;
 	
 	@PostMapping
-	public void register(@RequestBody RegisterPatientDto dto) {
+	public void register(@RequestBody @Valid RegisterPatientDto dto) {
 		repository.save(new Patient(dto));
 	}
 }

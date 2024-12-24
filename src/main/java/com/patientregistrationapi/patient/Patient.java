@@ -1,5 +1,7 @@
 package com.patientregistrationapi.patient;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,25 +23,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Patient {
-	
+
 	public Patient(RegisterPatientDto dto) {
-		this.name=dto.name();
-		this.birthDate=dto.birthDate();
-		this.bloodGroup=dto.bloodGroup();
-		this.phoneNumber=dto.phoneNumber();
-		this.email=dto.email();
-		this.address=dto.address();
+		this.name = dto.name();
+		this.birthDate = dto.birthDate();
+		this.bloodGroup = dto.bloodGroup();
+		this.phoneNumber = dto.phoneNumber();
+		this.email = dto.email();
+		this.address = dto.address();
 	}
-	
-	@Id 
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String birthDate;
-	
+	private LocalDate birthDate;
+
 	@Enumerated(EnumType.STRING)
-	private BloodGroup bloodGroup; 
-	
+	private BloodGroup bloodGroup;
+
 	private String phoneNumber;
 	private String email;
 	private String address;
