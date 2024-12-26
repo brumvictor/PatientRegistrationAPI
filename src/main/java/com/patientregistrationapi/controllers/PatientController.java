@@ -5,14 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patientregistrationapi.patient.ListPatientDto;
 import com.patientregistrationapi.patient.Patient;
-import com.patientregistrationapi.patient.PatientListDto;
 import com.patientregistrationapi.patient.PatientRepository;
 import com.patientregistrationapi.patient.RegisterPatientDto;
+import com.patientregistrationapi.patient.UpdatePatientDto;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -31,7 +33,14 @@ public class PatientController {
 	}
 	
 	@GetMapping
-	public List<PatientListDto> listAll() {
-		return repository.findAll().stream().map(PatientListDto::new).toList();
+	public List<ListPatientDto> listAll() {
+		return repository.findAll().stream().map(ListPatientDto::new).toList();
+	}
+	
+	@PutMapping
+	@Transactional
+	public void update(@RequestBody @Valid UpdatePatientDto dto) {
+		var patient = repository.getReferenceById(dto.id());
+		patient.updateInfo(dto);
 	}
 }

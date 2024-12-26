@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,8 +24,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Patient {
-	
-	public Patient() {}
+
+	public Patient() {
+	}
 
 	public Patient(RegisterPatientDto dto) {
 		this.name = dto.name();
@@ -47,29 +49,61 @@ public class Patient {
 	private String phoneNumber;
 	private String email;
 	private String address;
-	
+
 	// Getters
-    public String getName() {
-        return name;
-    }
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public BloodGroup getBloodGroup() {
-        return bloodGroup;
-    }
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public BloodGroup getBloodGroup() {
+		return bloodGroup;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getEmail() {
+		return email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void updateInfo(@Valid UpdatePatientDto dto) {
+
+		if (dto.name() != null) {
+			this.name = dto.name();
+		}
+
+		if (dto.birthDate() != null) {
+			this.birthDate = dto.birthDate();
+		}
+
+		if (dto.bloodGroup() != null) {
+			this.bloodGroup = dto.bloodGroup();
+		}
+
+		if (dto.phoneNumber() != null) {
+			this.phoneNumber = dto.phoneNumber();
+		}
+
+		if (dto.email() != null) {
+			this.email = dto.email();
+		}
+
+		if (dto.address() != null) {
+			this.address = dto.address();
+		}
+	}
 }
