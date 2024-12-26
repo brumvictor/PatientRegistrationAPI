@@ -23,6 +23,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Patient {
+	
+	public Patient() {}
 
 	public Patient(RegisterPatientDto dto) {
 		this.name = dto.name();
@@ -45,4 +47,29 @@ public class Patient {
 	private String phoneNumber;
 	private String email;
 	private String address;
+	
+	// Getters
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public BloodGroup getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }
