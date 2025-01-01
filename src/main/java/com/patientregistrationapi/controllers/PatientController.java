@@ -30,39 +30,39 @@ public class PatientController {
 	
 	@PostMapping
 	@Transactional
-	public void register(@RequestBody @Valid RegisterPatientDto dto) {
+	public void registerPatient(@RequestBody @Valid RegisterPatientDto dto) {
 		repository.save(new Patient(dto));
 	}
 	
 	@GetMapping
-	public List<ListPatientDto> listAll() {
+	public List<ListPatientDto> getAllPatients() {
 		return repository.findAllByActiveTrue().stream().map(ListPatientDto::new).toList();
 	}
 	
 	@PutMapping
 	@Transactional
-	public void update(@RequestBody @Valid UpdatePatientDto dto) {
+	public void updatePatient(@RequestBody @Valid UpdatePatientDto dto) {
 		var patient = repository.getReferenceById(dto.id());
 		patient.updateInfo(dto);
 	}
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public void delete (@PathVariable Long id) {
+	public void deletePatient (@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 	
 	@DeleteMapping("deactivate/{id}")
 	@Transactional
-	public void deactivate(@PathVariable Long id) {
+	public void deactivatePatient(@PathVariable Long id) {
 		var patient = repository.getReferenceById(id);
-		patient.deactivate();
+		patient.deactivatePatient();
 	}
 	
 	@PutMapping("activate/{id}")
 	@Transactional
-	public void activate(@PathVariable Long id) {
+	public void activatePatient(@PathVariable Long id) {
 		var patient = repository.getReferenceById(id);
-		patient.activate();
+		patient.activatePatient();
 	}
 }

@@ -110,11 +110,11 @@ public class Patient {
 		}
 	}
 
-	public void deactivate() {
+	public void deactivatePatient() {
 		this.active = false;
 	}
 	
-	public void activate() {
+	public void activatePatient() {
 		this.active = true;
 	}
 }
