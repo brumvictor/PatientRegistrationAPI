@@ -24,11 +24,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Patient {
-
+	
 	public Patient() {
 	}
 
 	public Patient(RegisterPatientDto dto) {
+		this.active = true;
 		this.name = dto.name();
 		this.birthDate = dto.birthDate();
 		this.bloodGroup = dto.bloodGroup();
@@ -49,6 +50,8 @@ public class Patient {
 	private String phoneNumber;
 	private String email;
 	private String address;
+	
+	private Boolean active;
 
 	// Getters
 	public Long getId() {
@@ -105,5 +108,13 @@ public class Patient {
 		if (dto.address() != null) {
 			this.address = dto.address();
 		}
+	}
+
+	public void deactivate() {
+		this.active = false;
+	}
+	
+	public void activate() {
+		this.active = true;
 	}
 }

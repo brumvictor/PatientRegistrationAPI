@@ -36,7 +36,7 @@ public class PatientController {
 	
 	@GetMapping
 	public List<ListPatientDto> listAll() {
-		return repository.findAll().stream().map(ListPatientDto::new).toList();
+		return repository.findAllByActiveTrue().stream().map(ListPatientDto::new).toList();
 	}
 	
 	@PutMapping
@@ -50,5 +50,19 @@ public class PatientController {
 	@Transactional
 	public void delete (@PathVariable Long id) {
 		repository.deleteById(id);
+	}
+	
+	@DeleteMapping("deactivate/{id}")
+	@Transactional
+	public void deactivate(@PathVariable Long id) {
+		var patient = repository.getReferenceById(id);
+		patient.deactivate();
+	}
+	
+	@PutMapping("activate/{id}")
+	@Transactional
+	public void activate(@PathVariable Long id) {
+		var patient = repository.getReferenceById(id);
+		patient.activate();
 	}
 }
