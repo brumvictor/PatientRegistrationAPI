@@ -82,6 +82,10 @@ public class Patient {
 	public String getAddress() {
 		return address;
 	}
+		
+	public Boolean getActive() {
+		return active;
+	}
 
 	public void updateInfo(@Valid UpdatePatientDto dto) {
 
@@ -117,4 +121,6 @@ public class Patient {
 	public void activatePatient() {
 		this.active = true;
 	}
+
+	
 }
