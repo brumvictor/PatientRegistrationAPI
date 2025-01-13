@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patientregistrationapi.infra.JWTTokenDTO;
+import com.patientregistrationapi.infra.TokenService;
 import com.patientregistrationapi.users.AuthDto;
+import com.patientregistrationapi.users.User;
 
 import jakarta.validation.Valid;
 
@@ -20,12 +23,17 @@ public class AuthController {
 	@Autowired
 	private AuthenticationManager manager;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	@PostMapping
 	public ResponseEntity<?> login(@RequestBody @Valid AuthDto dto) {
 		var token = new UsernamePasswordAuthenticationToken(dto.login(), dto.password());
 		var authenticator = manager.authenticate(token);
 		
-		return ResponseEntity.ok("");
+		var tokenJWT = tokenService.generateToken((User) authenticator.getPrincipal());
+		
+		return ResponseEntity.ok(new JWTTokenDTO(tokenJWT));
 	}
 		
 }
