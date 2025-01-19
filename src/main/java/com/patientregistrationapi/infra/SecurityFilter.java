@@ -3,8 +3,12 @@ package com.patientregistrationapi.infra;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.patientregistrationapi.users.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -16,27 +20,36 @@ public class SecurityFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private TokenService tokenService;
+	
+	@Autowired
+	private UserRepository repository;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
 		var tokenJWT = getToken(request);
-		var subject = tokenService.getSubject(tokenJWT);
 		
-		filterChain.doFilter(request, response);
+		if (tokenJWT != null) {
+			var subject = tokenService.getSubject(tokenJWT);
+			var user = repository.findByLogin(subject);
+			
+			var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+			
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		}
 		
+		filterChain.doFilter(request, response);	
 	}
 
 	private String getToken(HttpServletRequest request) {
 		var authorizationHeader = request.getHeader("Authorization");
 		
-		if (authorizationHeader == null)
+		if (authorizationHeader != null)
 		{
-			throw new RuntimeException("Token não enviado.");
+			return authorizationHeader.replace("Bearer ", "");
 		}
 		
-		return authorizationHeader;
+		return null;
 	}
-	
 }
