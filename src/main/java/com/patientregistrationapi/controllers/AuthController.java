@@ -14,10 +14,16 @@ import com.patientregistrationapi.infra.TokenService;
 import com.patientregistrationapi.users.AuthDto;
 import com.patientregistrationapi.users.User;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/login")
+@Tag(name = "Authentication", description = "Endpoints for user authentication")
 public class AuthController {
 	
 	@Autowired
@@ -27,6 +33,12 @@ public class AuthController {
 	private TokenService tokenService;
 	
 	@PostMapping
+	@Operation(summary = "Authenticate a user", description = "Validates user credentials and returns a JWT token.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Authentication successful, returns the JWT token."),
+        @ApiResponse(responseCode = "403", description = "Authentication failed, unauthorized."),
+        @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
 	public ResponseEntity<?> login(@RequestBody @Valid AuthDto dto) {
 		var token = new UsernamePasswordAuthenticationToken(dto.login(), dto.password());
 		var authenticator = manager.authenticate(token);
@@ -34,6 +46,5 @@ public class AuthController {
 		var tokenJWT = tokenService.generateToken((User) authenticator.getPrincipal());
 		
 		return ResponseEntity.ok(new JWTTokenDTO(tokenJWT));
-	}
-		
+	}	
 }
