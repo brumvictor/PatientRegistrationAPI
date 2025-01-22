@@ -36,8 +36,9 @@ public class AuthController {
 	@Operation(summary = "Authenticate a user", description = "Validates user credentials and returns a JWT token.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Authentication successful, returns the JWT token."),
+        @ApiResponse(responseCode = "400", description = "Invalid request data provided"),
         @ApiResponse(responseCode = "403", description = "Authentication failed, unauthorized."),
-        @ApiResponse(responseCode = "500", description = "Internal server error.")
+        @ApiResponse(responseCode = "500", description = "Internal server error")
     })
 	public ResponseEntity<?> login(@RequestBody @Valid AuthDto dto) {
 		var token = new UsernamePasswordAuthenticationToken(dto.login(), dto.password());

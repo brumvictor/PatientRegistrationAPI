@@ -19,7 +19,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Patient_Registration_API")
                         .version("1.0")
-                        .description("Documentação da API com suporte a JWT"))
+                        .description("API documentation with JWT support"))
                 .addSecurityItem(new SecurityRequirement()
                         .addList(securitySchemeName)) // Adiciona o esquema de segurança globalmente
                 .components(new io.swagger.v3.oas.models.Components()
