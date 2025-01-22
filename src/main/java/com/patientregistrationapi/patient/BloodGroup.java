@@ -1,5 +1,7 @@
 package com.patientregistrationapi.patient;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum BloodGroup {
 	A_POSITIVE("A+"),
     A_NEGATIVE("A-"),
@@ -20,5 +22,15 @@ public enum BloodGroup {
     @Override
     public String toString() {
         return value;
+    }
+    
+    @JsonCreator
+    public static BloodGroup fromValue(String value) {
+        for (BloodGroup bg : BloodGroup.values()) {
+            if (bg.getValue().equalsIgnoreCase(value.trim())) {
+                return bg;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant for value: " + value);
     }
 }

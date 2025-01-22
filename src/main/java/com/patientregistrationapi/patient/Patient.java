@@ -32,7 +32,7 @@ public class Patient {
 		this.active = true;
 		this.name = dto.name();
 		this.birthDate = dto.birthDate();
-		this.bloodGroup = dto.bloodGroup();
+		this.bloodGroup = BloodGroup.fromValue(dto.bloodGroup().toString());
 		this.phoneNumber = dto.phoneNumber();
 		this.email = dto.email();
 		this.address = dto.address();
