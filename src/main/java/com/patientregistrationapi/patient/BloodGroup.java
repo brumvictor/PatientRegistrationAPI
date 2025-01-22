@@ -27,7 +27,9 @@ public enum BloodGroup {
     @JsonCreator
     public static BloodGroup fromValue(String value) {
         for (BloodGroup bg : BloodGroup.values()) {
-            if (bg.getValue().equalsIgnoreCase(value.trim())) {
+            // Verifica tanto o valor quanto o nome do enum
+            if (bg.getValue().equalsIgnoreCase(value.trim()) || 
+                bg.name().equalsIgnoreCase(value.trim())) {
                 return bg;
             }
         }
