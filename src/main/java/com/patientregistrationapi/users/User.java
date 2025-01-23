@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class User implements UserDetails{
 	private Long id;
 	private String login;
 	private String password;
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
@@ -45,5 +46,13 @@ public class User implements UserDetails{
 	@Override
 	public String getUsername() {
 		return login;
+	}
+	
+	public void setLogin(String login) {
+	    this.login = login;
+	}
+
+	public void setPassword(String password) {
+	    this.password = password;
 	}
 }

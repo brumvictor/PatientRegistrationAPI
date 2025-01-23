@@ -29,7 +29,7 @@ public class SecurityConfig {
              session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Configura política de sessão
          )
          .authorizeHttpRequests(auth -> auth
-                 .requestMatchers(HttpMethod.POST, "/login").permitAll() // Permite POSTs para endpoints específicos
+                 .requestMatchers(HttpMethod.POST, "/login/**").permitAll() // Permite POSTs para endpoints específicos
                  .requestMatchers("/swagger-ui.html/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()  // Permite acesso a Swagger UI
                  .anyRequest().authenticated() // Exige autenticação para qualquer outra requisição
              );
