@@ -1,4 +1,4 @@
-package com.patientregistrationapi.controllers;
+package com.patientregistrationapi.users;
 
 import jakarta.validation.constraints.NotBlank;
 

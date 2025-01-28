@@ -1,5 +1,6 @@
 package com.patientregistrationapi.controllers;
 
+import com.patientregistrationapi.users.RegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,16 +28,16 @@ import jakarta.validation.Valid;
 @RequestMapping("/login")
 @Tag(name = "Authentication", description = "Endpoints for user authentication")
 public class AuthController {
-	
+
 	@Autowired
 	private AuthenticationManager manager;
-	
+
 	@Autowired
 	private TokenService tokenService;
-	
+
 	@Autowired
     private UserRepository userRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
