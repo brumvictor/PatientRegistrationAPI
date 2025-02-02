@@ -3,6 +3,7 @@ package com.patientregistrationapi.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,8 +82,8 @@ public class PatientController {
 		
 		return ResponseEntity.ok(new PatientDetailsDto(patient));
 	}
-	
-	@PutMapping
+
+	@PutMapping("/{id}")
 	@Transactional
 	@Operation(summary = "Update patient information", description = "Updates the information of an existing patient.")
     @ApiResponses({
@@ -92,9 +93,14 @@ public class PatientController {
         @ApiResponse(responseCode = "403", description = "Unauthorized access"),
         @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-	public ResponseEntity<PatientDetailsDto> updatePatient(@RequestBody @Valid UpdatePatientDto dto) {
-		var patient = repository.getReferenceById(dto.id());
-		patient.updateInfo(dto);
+	public ResponseEntity<PatientDetailsDto> updatePatient(@PathVariable Long id, @RequestBody @Valid UpdatePatientDto dto) {
+		var patient = repository.findById(id).orElse(null); // Tenta buscar o paciente
+
+		if (patient == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Caso o paciente não seja encontrado
+		}
+
+		patient.updateInfo(dto); // Atualiza as informações do paciente
 		
 		return ResponseEntity.ok(new PatientDetailsDto(patient));
 	}
